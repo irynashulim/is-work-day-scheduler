@@ -69,3 +69,12 @@ textarea{
   font-size: 20px;
   transition: all .3s ease-in-out;
 }
+
+.input-box {
+  height: 100%;
+  width: 100%;
+}
+
+.col-10 {
+  padding: 0;
+}
