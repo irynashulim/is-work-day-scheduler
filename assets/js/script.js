@@ -2,58 +2,54 @@
 var currentDay = moment().format('LLL');
 $("#currentDay").append(currentDay);
 
-var list = JSON.parse(localStorage.getItem('todolist')) || [];
 
-// Renders our to-dos to the page
-function renderTodos(list) {
-    // Empties out the html
+
+var schedule = JSON.parse(localStorage.getItem('schedule')) || [];
+
+
+function renderTodos(schedule) {
     $('#to-dos').empty();
 
 // Iterates over the 'list'
-for (var i = 0; i < list.length; i++) {
-    // Creates a new variable 'toDoItem' that will hold a "<p>" tag
-    // Sets the `list` item's value as text of this <p> element
-    var toDoItem = $('<p>');
-    toDoItem.text(list[i]);
+for (var i = 0; i < schedule.length; i++) {
+    
+    var scheduleItem = $('<p>');
+    scheduleItem.text(schedule[i]);
 
-    // Creates a button `toDoClose` with an attribute called `data-to-do` and a unique `id`
-    var toDoSave = $('<button>');
-    toDoSave.attr('data-to-do', i);
+    var scheduleSave = $('<button>');
+    scheduleSave.attr('schedule-to-do', i);
+    scheduleSave.addClass('save');
 
-// Adds the button to the `toDoItem`
-toDoItem = toDoItem.prepend(toDoSave);
+scheduleItem = scheduleItem.prepend(scheduleSave);
 
-// Adds 'toDoItem' to the To-Do List div
-$('#to-dos').append(toDoItem);
+$('#to-dos').append(scheduleItem);
 }
 }
 $('#checkbox').on('click', function(event) {
     event.preventDefault();
 
-// Get the to-do "value" from the textbox and store it as a variable using `.val()` and `.trim()`
-        // YOUR CODE HERE
         var toDo = $(".input-box")
         .val()
         .trim();
-        console.log(toDo);
 
-        // Add the new to-do to our local 'list' variable
-        // YOUR CODE HERE
-        list.push(toDo);
-        console.log(list)
+        schedule.push(toDo);
 
-        // Update the to-dos on the page
-        // YOUR CODE HERE
-        for (i = 0; i<list.length; i++) {
-            var item = list[i];
+        for ( i = 0; i<schedule.length; i++) {
+            var item = schedule[i];
           };
-          renderTodos(list);
+          renderTodos(schedule);
 
-          // Save the to-dos into localStorage
-        // We need to use JSON.stringify to turn the list from an array into a string
-        // YOUR CODE HERE
-        var task = JSON.stringify(list);
-        localStorage.setItem("todolist", task);
-    });
+        var task = JSON.stringify(schedule);
+        localStorage.setItem("schedule", task);
+      });
 
+      $(document).on('click', '.save', function() {
+        var itemId = $(this).attr('schedule-to-do')
+        schedule.splice(itemId, 1);
+        renderTodos(schedule);
+        localStorage.setItem("schedule", JSON.stringify(schedule));
+      });
 
+      renderTodos(schedule);
+    
+      
