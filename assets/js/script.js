@@ -29,13 +29,32 @@ for (var i = 0; i < 9; i++) {
   var timeSection = $("<div class='col-2 time-block'></div>");
   var scheduleSection = $("<div class='col-8'></div>");
   var btnSection = $("<div class='col-2'></div>");
-
+  scheduleRow.append(timeSection);
+  scheduleRow.append(scheduleSection);
+  scheduleRow.append(btnSection);
+  schedule.append(scheduleRow);
+//timeSection
   timeSection.text(convertTime(i + 8));
-
+//scheduleSection
   var textArea = $("<textarea class='form-control textarea'></textarea>");
   textArea.attr("id", i + "_textarea");
   textArea.val(events[i]);
-  
+  textArea.addClass(color);
+  scheduleSection.append(textArea);
+//btnSection
+var saveBtn = $("<button type='button' class='saveBtn'></button'>");
+saveBtn.text("Save");
+saveBtn.attr("id", i);
+saveBtn.onclick(function(event) {
+  save(event);
+});
+btnSection.append(saveBtn);
+
+
+
+
+
+
 
 
 
